@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Get Started — Offer Fixer AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#000;--white:#fff;--gray-800:#111;--gray-700:#1a1a1a;--gray-600:#222;--gray-400:#555;--gray-300:#888;--gray-200:#aaa;--violet:#8A2BE2;--blue:#00BFFF;--grad:linear-gradient(135deg,#8A2BE2,#00BFFF);--grad-text:linear-gradient(90deg,#8A2BE2,#00BFFF);--glow:0 0 30px rgba(138,43,226,0.4),0 0 60px rgba(0,191,255,0.15);--glow-sm:0 0 15px rgba(138,43,226,0.3);--radius:16px;--radius-sm:10px}
+body{background:var(--black);color:var(--white);font-family:"Inter",sans-serif;min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(138,43,226,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(138,43,226,0.04) 1px,transparent 1px);background-size:60px 60px;pointer-events:none;z-index:0}
+body::after{content:"";position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(138,43,226,0.12) 0%,transparent 70%);pointer-events:none;z-index:0}
+header{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;padding:1.25rem 2.5rem;border-bottom:1px solid rgba(255,255,255,0.06);backdrop-filter:blur(10px);background:rgba(0,0,0,0.6)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{width:32px;height:32px;background:var(--grad);border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:var(--glow-sm)}
+.logo-text{font-family:"Syne",sans-serif;font-weight:700;font-size:17px;background:var(--grad-text);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.step-counter{font-size:13px;color:var(--gray-400);font-weight:500}
+main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:3rem 2rem 5rem}
+.progress-bar{height:3px;background:rgba(255,255,255,0.07);border-radius:100px;margin-bottom:3rem;overflow:hidden}
+.progress-fill{height:100%;background:var(--grad);border-radius:100px;transition:width 0.5s cubic-bezier(0.22,1,0.36,1)}
+.step{display:none;animation:fadeUp 0.45s ease both}
+.step.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.step-icon{width:56px;height:56px;background:rgba(138,43,226,0.12);border:1px solid rgba(138,43,226,0.25);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:1.5rem}
+.step-eyebrow{font-size:11px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--violet);margin-bottom:0.5rem}
+.step h2{font-family:"Syne",sans-serif;font-size:clamp(1.5rem,3vw,2rem);font-weight:800;letter-spacing:-0.02em;margin-bottom:0.75rem}
+.step p{font-size:15px;color:var(--gray-300);line-height:1.75;margin-bottom:2rem}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:2rem}
+.role-card{background:var(--gray-800);border:1px solid rgba(255,255,255,0.07);border-radius:var(--radius-sm);padding:1.25rem;cursor:pointer;transition:border-color 0.2s,background 0.2s;text-align:left}
+.role-card:hover{border-color:rgba(138,43,226,0.4);background:rgba(138,43,226,0.05)}
+.role-card.selected{border-color:rgba(138,43,226,0.6);background:rgba(138,43,226,0.08)}
+.role-emoji{font-size:24px;margin-bottom:8px;display:block}
+.role-name{font-family:"Syne",sans-serif;font-size:14px;font-weight:700;color:var(--white);margin-bottom:3px}
+.role-desc{font-size:12px;color:var(--gray-400)}
+.checklist{display:flex;flex-direction:column;gap:10px;margin-bottom:2rem}
+.check-item{display:flex;align-items:flex-start;gap:12px;background:var(--gray-800);border:1px solid rgba(255,255,255,0.06);border-radius:var(--radius-sm);padding:1rem 1.25rem}
+.check-dot{width:20px;height:20px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px;box-shadow:var(--glow-sm)}
+.check-text{font-size:14px;color:var(--gray-200);line-height:1.5}
+.check-text strong{color:var(--white);display:block;margin-bottom:2px}
+.demo-box{background:var(--gray-800);border:1px solid rgba(138,43,226,0.2);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:2rem}
+.demo-label{font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--violet);margin-bottom:0.75rem}
+.demo-text{font-size:13px;color:var(--gray-300);line-height:1.7;font-style:italic}
+.tip-row{display:flex;gap:10px;align-items:flex-start;background:rgba(0,191,255,0.05);border:1px solid rgba(0,191,255,0.15);border-radius:var(--radius-sm);padding:1rem 1.25rem;margin-bottom:2rem}
+.tip-icon{font-size:16px;flex-shrink:0}
+.tip-text{font-size:13px;color:var(--gray-200);line-height:1.6}
+.btn-row{display:flex;gap:12px;align-items:center}
+.btn-next{flex:1;padding:13px;background:var(--grad);color:#fff;font-family:"Syne",sans-serif;font-size:14px;font-weight:700;letter-spacing:0.04em;border:none;border-radius:var(--radius-sm);cursor:pointer;box-shadow:var(--glow);transition:transform 0.15s,opacity 0.15s}
+.btn-next:hover{transform:translateY(-1px)}
+.btn-skip{padding:12px 18px;background:transparent;color:var(--gray-400);font-size:13px;border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius-sm);cursor:pointer;transition:color 0.2s;white-space:nowrap}
+.btn-skip:hover{color:var(--gray-200)}
+.success-icon{width:72px;height:72px;background:var(--grad);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin-bottom:1.5rem;box-shadow:var(--glow)}
+@media(max-width:600px){header{padding:1rem 1.25rem}main{padding:2rem 1rem 3rem}.role-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <a href="index.html" class="logo">
+    <div class="logo-icon">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <rect x="1" y="11" width="3.5" height="7" rx="1" fill="rgba(255,255,255,0.6)"/>
+        <rect x="6" y="7" width="3.5" height="11" rx="1" fill="rgba(255,255,255,0.8)"/>
+        <rect x="11" y="4" width="3.5" height="14" rx="1" fill="white"/>
+        <path d="M16.5 1L17.3 3.2L19.5 4L17.3 4.8L16.5 7L15.7 4.8L13.5 4L15.7 3.2Z" fill="white" opacity="0.95"/>
+      </svg>
+    </div>
+    <span class="logo-text">Offer Fixer AI</span>
+  </a>
+  <span class="step-counter" id="stepCounter">Step 1 of 4</span>
+</header>
+<main>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:25%"></div></div>
+
+  <!-- STEP 1: Welcome -->
+  <div class="step active" id="step1">
+    <div class="step-icon">&#128075;</div>
+    <div class="step-eyebrow">Welcome</div>
+    <h2>You're 30 seconds away from a better offer.</h2>
+    <p>Offer Fixer AI analyzes your offer, scores it, detects what's blocking your sales, and gives you an optimized version ready to convert — instantly.</p>
+    <div class="checklist">
+      <div class="check-item"><div class="check-dot">&#10003;</div><div class="check-text"><strong>Analyze any offer</strong>Product pages, freelance pitches, ad copy, DMs — everything works.</div></div>
+      <div class="check-item"><div class="check-dot">&#10003;</div><div class="check-text"><strong>Get a performance score</strong>Clarity, desire, and conversion potential rated out of 10.</div></div>
+      <div class="check-item"><div class="check-dot">&#10003;</div><div class="check-text"><strong>Receive an optimized version</strong>With hooks, CTA, before/after, and a landing page structure.</div></div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-next" onclick="nextStep()">Let's go &#8594;</button>
+    </div>
+  </div>
+
+  <!-- STEP 2: Role selection -->
+  <div class="step" id="step2">
+    <div class="step-icon">&#127919;</div>
+    <div class="step-eyebrow">Personalize</div>
+    <h2>What best describes you?</h2>
+    <p>We'll tailor the AI analysis to your specific context and goals.</p>
+    <div class="role-grid">
+      <div class="role-card" onclick="selectRole(this)">
+        <span class="role-emoji">&#128230;</span>
+        <div class="role-name">Dropshipper</div>
+        <div class="role-desc">I sell products online and run paid ads</div>
+      </div>
+      <div class="role-card" onclick="selectRole(this)">
+        <span class="role-emoji">&#128188;</span>
+        <div class="role-name">Freelancer</div>
+        <div class="role-desc">I offer services and want more clients</div>
+      </div>
+      <div class="role-card" onclick="selectRole(this)">
+        <span class="role-emoji">&#127970;</span>
+        <div class="role-name">Agency Owner</div>
+        <div class="role-desc">I manage offers for multiple clients</div>
+      </div>
+      <div class="role-card" onclick="selectRole(this)">
+        <span class="role-emoji">&#128640;</span>
+        <div class="role-name">Founder / Builder</div>
+        <div class="role-desc">I'm launching a product or SaaS</div>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-skip" onclick="nextStep()">Skip</button>
+      <button class="btn-next" onclick="nextStep()">Continue &#8594;</button>
+    </div>
+  </div>
+
+  <!-- STEP 3: How it works -->
+  <div class="step" id="step3">
+    <div class="step-icon">&#9889;</div>
+    <div class="step-eyebrow">How it works</div>
+    <h2>Paste your offer. Get results instantly.</h2>
+    <p>Here's what a good offer submission looks like — the more context you give, the sharper the analysis.</p>
+    <div class="demo-box">
+      <div class="demo-label">Example input</div>
+      <div class="demo-text">"I help e-commerce store owners who are getting traffic but no sales fix their product pages and ad copy so they start converting at 3%+ within 2 weeks — or I work for free. Package starts at €497."</div>
+    </div>
+    <div class="tip-row">
+      <span class="tip-icon">&#128161;</span>
+      <div class="tip-text">Include your <strong>target audience</strong>, the <strong>problem you solve</strong>, your <strong>result/promise</strong>, and your <strong>price</strong>. The AI will do the rest.</div>
+    </div>
+    <div class="btn-row">
+      <button class="btn-skip" onclick="nextStep()">Back</button>
+      <button class="btn-next" onclick="nextStep()">Got it &#8594;</button>
+    </div>
+  </div>
+
+  <!-- STEP 4: Ready -->
+  <div class="step" id="step4" style="text-align:center">
+    <div style="display:flex;justify-content:center">
+      <div class="success-icon">&#127881;</div>
+    </div>
+    <div class="step-eyebrow" style="text-align:center">You're all set</div>
+    <h2>Ready to fix your first offer?</h2>
+    <p style="max-width:420px;margin:0 auto 2rem">Your workspace is ready. Start with any offer — a product description, a freelance pitch, or an ad — and watch the AI transform it.</p>
+    <div class="btn-row" style="justify-content:center">
+      <a href="index.html" class="btn-next" style="text-decoration:none;display:inline-block;padding:13px 32px;flex:none">&#x26A1; Analyze My First Offer</a>
+    </div>
+  </div>
+</main>
+<script>
+let current = 1;
+const total = 4;
+function nextStep() {
+  if (current >= total) return;
+  document.getElementById("step" + current).classList.remove("active");
+  current++;
+  document.getElementById("step" + current).classList.add("active");
+  document.getElementById("stepCounter").textContent = "Step " + current + " of " + total;
+  document.getElementById("progressFill").style.width = (current / total * 100) + "%";
+}
+function selectRole(el) {
+  document.querySelectorAll(".role-card").forEach(c => c.classList.remove("selected"));
+  el.classList.add("selected");
+}
+</script>
+</body>
+</html>
